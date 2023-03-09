@@ -28,5 +28,20 @@ def storage_data():
         data = json.load(f)
     return jsonify(data)
 
+
+@app.route('/liqid/api/v2/status/fpga', methods=['GET'])
+def fpga_data():
+    with open('fpga.json') as f:
+        data = json.load(f)
+    return jsonify(data)
+
+
+
+@app.route('/liqid/api/v2/fabric/topology', methods=['GET'])
+def topology_data():
+    with open('topology.json') as f:
+        data = json.load(f)
+    return jsonify(data)
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run( host = "0.0.0.0", port=8080,debug=True)
