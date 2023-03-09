@@ -1,0 +1,69 @@
+Name:                 metrics-server-7d5fbcc4f9-6g8cx
+Namespace:            kube-system
+Priority:             2000000000
+Priority Class Name:  system-cluster-critical
+Node:                 knode01/192.168.1.2
+Start Time:           Fri, 17 Feb 2023 00:28:52 +0700
+Labels:               k8s-app=metrics-server
+                      pod-template-hash=7d5fbcc4f9
+Annotations:          cni.projectcalico.org/containerID: 48e2e1c4320eccaf6df541e8c7911bde9cdc0bcab6592fc58f84419a36169806
+                      cni.projectcalico.org/podIP: 172.29.25.129/32
+                      cni.projectcalico.org/podIPs: 172.29.25.129/32
+Status:               Running
+IP:                   172.29.25.129
+IPs:
+  IP:           172.29.25.129
+Controlled By:  ReplicaSet/metrics-server-7d5fbcc4f9
+Containers:
+  metrics-server:
+    Container ID:  docker://8bf310696350fe9992eb01d13a5560a1c72a5988396d525358cc8a2d91d62945
+    Image:         bright92:5000/metrics-server/metrics-server:v0.6.1
+    Image ID:      docker-pullable://bright92:5000/metrics-server/metrics-server@sha256:f9800ed2264fba9b5513ca183f0f7988c8597e21c72bb39888168232d378973d
+    Port:          4443/TCP
+    Host Port:     0/TCP
+    Args:
+      --cert-dir=/tmp
+      --secure-port=4443
+      --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
+      --kubelet-use-node-status-port
+      --metric-resolution=15s
+    State:          Running
+      Started:      Fri, 17 Feb 2023 00:28:54 +0700
+    Ready:          False
+    Restart Count:  0
+    Requests:
+      cpu:        100m
+      memory:     200Mi
+    Liveness:     http-get https://:https/livez delay=0s timeout=1s period=10s #success=1 #failure=3
+    Readiness:    http-get https://:https/readyz delay=20s timeout=1s period=10s #success=1 #failure=3
+    Environment:  <none>
+    Mounts:
+      /tmp from tmp-dir (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-tvx5b (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             False 
+  ContainersReady   False 
+  PodScheduled      True 
+Volumes:
+  tmp-dir:
+    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:     
+    SizeLimit:  <unset>
+  kube-api-access-tvx5b:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              kubernetes.io/os=linux
+Tolerations:                 node-role.kubernetes.io/master=true:NoSchedule
+                             node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason            Age                     From     Message
+  ----     ------            ----                    ----     -------
+  Warning  Unhealthy         9m34s (x5909 over 16h)  kubelet  Readiness probe failed: HTTP probe failed with statuscode: 500
+  Warning  DNSConfigForming  4m37s (x4565 over 16h)  kubelet  Search Line limits were exceeded, some search paths have been omitted, the applied search line is: kube-system.svc.cluster.local svc.cluster.local cluster.local cm.cluster external.cluster eth.cluster
