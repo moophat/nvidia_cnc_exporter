@@ -3,3 +3,4 @@ links:
     gpu_api: "http://10.98.12.18:8080/liqid/api/v2/status/gpu?filter=true"
     host_api: "http://10.98.12.18:8080/liqid/api/v2/fabric/topology"
     mgmt_api: "http://10.98.12.18:8080/liqid/api/v2/fabric/topology"
+port: 9023
