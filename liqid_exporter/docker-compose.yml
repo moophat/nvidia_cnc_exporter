@@ -1,0 +1,11 @@
+version: "1.0"
+services:
+  exporter:
+    build:
+      context: .
+    ports:
+      - "9023:9023" 
+    command:
+      - /tmp/config.yaml
+    volumes:
+      - /root/nvidia_cnc_exporter/liqid_exporter:/tmp
