@@ -11,7 +11,7 @@ from prometheus_client import start_http_server, Gauge, Counter
 #LIQID_MGMT_API = "http://10.98.12.18:8080/liqid/api/v2/fabric/topology"
 
 class Exporter:
-    METRIC_PORT = 9023
+    METRIC_PORT = 0
     LIQID_STORAGE_API = ""
     LIQID_GPU_API = ""
     LIQID_HOST_API = ""
@@ -28,7 +28,8 @@ class Exporter:
     HOST_STATE = Gauge("host_state", "Host state 1-> OK", LABEL_FOR_HOST)
     MGMT_STATE = Gauge("mgmt_state", "MGMT state 1-> OK", LABEL_FOR_MGMT)
 
-    def __init__(self, storageApi, gpuApi, hostApi, mgmtApi):
+    def __init__(self, metricPort, storageApi, gpuApi, hostApi, mgmtApi):
+        self.METRIC_PORT = metricPort
         self.LIQID_STORAGE_API = storageApi
         self.LIQID_GPU_API = gpuApi
         self.LIQID_HOST_API = hostApi
@@ -111,7 +112,8 @@ def readConfig(DEFAULT_CONFIG):
             LIQID_GPU_API = d["gpu_api"]
             LIQID_HOST_API = d["host_api"]
             LIQID_MGMT_API = d["mgmt_api"]
-    Exporter(LIQID_STORAGE_API, LIQID_GPU_API, LIQID_HOST_API, LIQID_MGMT_API)
+        METRIC_PORT = conf["port"]
+    Exporter(METRIC_PORT, LIQID_STORAGE_API, LIQID_GPU_API, LIQID_HOST_API, LIQID_MGMT_API)
 
 def main():
     DEFAULT_CONFIG = "config.yaml"
